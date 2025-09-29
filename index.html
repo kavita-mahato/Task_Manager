@@ -1,212 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager - Stay Organized</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskMate - Stay Organized</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="auth-screen" class="auth-screen" style="display: none">
+      <div class="auth-wrapper">
+        <section class="auth-left">
+          <div class="auth-panel">
+            <div class="auth-left-header">
+              <div class="welcome-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <h2>Welcome Back</h2>
+              <p>Sign in to access your tasks</p>
+            </div>
+            <form id="auth-form" class="auth-form">
+              <div class="form-row">
+                <label for="auth-username">Username</label>
+                <input
+                  id="auth-username"
+                  type="text"
+                  placeholder="Enter your username"
+                  required
+                />
+              </div>
+              <div class="form-row">
+                <label for="auth-password">Password</label>
+                <input
+                  id="auth-password"
+                  type="password"
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+              <div class="auth-actions">
+                <button
+                  type="submit"
+                  id="auth-submit"
+                  class="btn-primary"
+                  style="width: 100%"
+                >
+                  Sign In
+                </button>
+              </div>
+              <div class="auth-switch">
+                <span id="auth-switch-text">Don't have an account?</span>
+                <button type="button" id="auth-toggle" class="link-btn">
+                  Create one
+                </button>
+              </div>
+              <div
+                id="auth-error"
+                class="auth-error"
+                aria-live="polite"
+                style="display: none"
+              ></div>
+            </form>
+          </div>
+        </section>
+        <section class="auth-right">
+          <div class="brand-icon"><i class="fas fa-check"></i></div>
+          <h1 class="brand-title">TaskMate</h1>
+          <p class="brand-subtitle">Your personal productivity companion</p>
+
+          <div class="feature-box">
+            <div class="feature">
+              <div class="feature-icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="feature-content">
+                <h3>Smart Organization</h3>
+                <p>
+                  Organize tasks by priority, project, and due dates. Never miss
+                  an important deadline again.
+                </p>
+              </div>
+            </div>
+            <div class="feature">
+              <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+              <div class="feature-content">
+                <h3>Progress Tracking</h3>
+                <p>
+                  Visualize your productivity with completion rates and progress
+                  statistics.
+                </p>
+              </div>
+            </div>
+            <div class="feature">
+              <div class="feature-icon"><i class="fas fa-filter"></i></div>
+              <div class="feature-content">
+                <h3>Advanced Filtering</h3>
+                <p>
+                  Find tasks quickly with powerful search and filtering
+                  capabilities.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p class="brand-foot">
+            Join thousands of users who have organized their lives with TaskMate
+          </p>
+        </section>
+      </div>
+    </div>
     <div class="app-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h1><i class="fas fa-check-circle"></i> TaskMate</h1>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <ul>
-                    <li><a href="#" class="nav-item active" data-view="today">
-                        <i class="fas fa-calendar-day"></i>
-                        <span>Today</span>
-                        <span class="task-count" id="today-count">0</span>
-                    </a></li>
-                    <li><a href="#" class="nav-item" data-view="upcoming">
-                        <i class="fas fa-calendar-week"></i>
-                        <span>Upcoming</span>
-                        <span class="task-count" id="upcoming-count">0</span>
-                    </a></li>
-                    <li><a href="#" class="nav-item" data-view="all">
-                        <i class="fas fa-list"></i>
-                        <span>All Tasks</span>
-                        <span class="task-count" id="all-count">0</span>
-                    </a></li>
-                    <li><a href="#" class="nav-item" data-view="completed">
-                        <i class="fas fa-check"></i>
-                        <span>Completed</span>
-                        <span class="task-count" id="completed-count">0</span>
-                    </a></li>
-                </ul>
-            </nav>
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h1><i class="fas fa-check-circle"></i> TaskMate</h1>
+          <div class="user-actions">
+            <span
+              id="current-user"
+              class="user-chip"
+              title="Signed in user"
+              style="display: none"
+            ></span>
+            <button
+              class="btn-icon"
+              id="signout-btn"
+              title="Sign out"
+              style="display: none"
+            >
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
+          </div>
+        </div>
 
-            <div class="progress-section">
-                <h3>Progress Overview</h3>
-                <div class="progress-stats">
-                    <div class="stat-item">
-                        <div class="stat-number" id="total-tasks">0</div>
-                        <div class="stat-label">Total Tasks</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="completed-tasks">0</div>
-                        <div class="stat-label">Completed</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="completion-rate">0%</div>
-                        <div class="stat-label">Completion Rate</div>
-                    </div>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill"></div>
-                </div>
-            </div>
-        </aside>
+        <nav class="sidebar-nav">
+          <ul>
+            <li>
+              <a href="#" class="nav-item active" data-view="today">
+                <i class="fas fa-calendar-day"></i>
+                <span>Today</span>
+                <span class="task-count" id="today-count">0</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-item" data-view="upcoming">
+                <i class="fas fa-calendar-week"></i>
+                <span>Upcoming</span>
+                <span class="task-count" id="upcoming-count">0</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-item" data-view="all">
+                <i class="fas fa-list"></i>
+                <span>All Tasks</span>
+                <span class="task-count" id="all-count">0</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-item" data-view="completed">
+                <i class="fas fa-check"></i>
+                <span>Completed</span>
+                <span class="task-count" id="completed-count">0</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="main-header">
-                <div class="header-content">
-                    <h2 id="view-title">Today</h2>
-                    <div class="header-actions">
-                        <button class="btn-icon" id="search-btn">
-                            <i class="fas fa-search"></i>
-                        </button>
-                        <button class="btn-icon" id="filter-btn">
-                            <i class="fas fa-filter"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Search Bar (Hidden by default) -->
-                <div class="search-container" id="search-container">
-                    <input type="text" id="search-input" placeholder="Search tasks...">
-                    <button class="btn-icon" id="clear-search">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </header>
-
-            <!-- Quick Add Task -->
-            <div class="quick-add">
-                <div class="add-task-container">
-                    <input type="text" id="task-input" placeholder="What needs to be done?">
-                    <button id="add-task-btn" class="btn-primary">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-                
-                <!-- Task Details (Expandable) -->
-                <div class="task-details" id="task-details">
-                    <div class="task-options">
-                        <div class="option-group">
-                            <label for="task-due-date">Due Date:</label>
-                            <input type="date" id="task-due-date">
-                        </div>
-                        <div class="option-group">
-                            <label for="task-priority">Priority:</label>
-                            <select id="task-priority">
-                                <option value="low">Low</option>
-                                <option value="medium" selected>Medium</option>
-                                <option value="high">High</option>
-                                <option value="urgent">Urgent</option>
-                            </select>
-                        </div>
-                        <div class="option-group">
-                            <label for="task-project">Project:</label>
-                            <select id="task-project">
-                                <option value="personal">Personal</option>
-                                <option value="work">Work</option>
-                                <option value="shopping">Shopping</option>
-                                <option value="health">Health</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="option-actions">
-                        <button id="cancel-task" class="btn-secondary">Cancel</button>
-                        <button id="save-task" class="btn-primary">Add Task</button>
-                    </div>
-                </div>
+        <div class="progress-section">
+          <h3>Progress Overview</h3>
+          <div class="progress-stats">
+            <div class="stat-item">
+              <div class="stat-number" id="total-tasks">0</div>
+              <div class="stat-label">Total Tasks</div>
             </div>
-
-            <!-- Filter Bar -->
-            <div class="filter-bar" id="filter-bar">
-                <div class="filter-options">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="personal">Personal</button>
-                    <button class="filter-btn" data-filter="work">Work</button>
-                    <button class="filter-btn" data-filter="shopping">Shopping</button>
-                    <button class="filter-btn" data-filter="health">Health</button>
-                </div>
-                <div class="filter-priority">
-                    <button class="priority-filter" data-priority="urgent">Urgent</button>
-                    <button class="priority-filter" data-priority="high">High</button>
-                    <button class="priority-filter" data-priority="medium">Medium</button>
-                    <button class="priority-filter" data-priority="low">Low</button>
-                </div>
+            <div class="stat-item">
+              <div class="stat-number" id="completed-tasks">0</div>
+              <div class="stat-label">Completed</div>
             </div>
-
-            <!-- Tasks Container -->
-            <div class="tasks-container" id="tasks-container">
-                <div class="empty-state" id="empty-state">
-                    <div class="empty-icon">
-                        <i class="fas fa-clipboard-list"></i>
-                    </div>
-                    <h3>No tasks yet</h3>
-                    <p>Add a task above to get started on your journey to productivity!</p>
-                </div>
-                
-                <div class="tasks-list" id="tasks-list">
-                    <!-- Tasks will be dynamically inserted here -->
-                </div>
+            <div class="stat-item">
+              <div class="stat-number" id="completion-rate">0%</div>
+              <div class="stat-label">Completion Rate</div>
             </div>
-        </main>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-content">
+            <h2 id="view-title">Today</h2>
+            <div class="header-actions">
+              <button class="btn-icon" id="search-btn">
+                <i class="fas fa-search"></i>
+              </button>
+              <button class="btn-icon" id="filter-btn">
+                <i class="fas fa-filter"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Search Bar (Hidden by default) -->
+          <div class="search-container" id="search-container">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search tasks..."
+            />
+            <button class="btn-icon" id="clear-search">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </header>
+
+        <!-- Quick Add Task -->
+        <div class="quick-add">
+          <div class="add-task-container">
+            <input
+              type="text"
+              id="task-input"
+              placeholder="What needs to be done?"
+            />
+            <button id="add-task-btn" class="btn-primary">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+
+          <!-- Task Details (Expandable) -->
+          <div class="task-details" id="task-details">
+            <div class="task-options">
+              <div class="option-group">
+                <label for="task-due-date">Due Date:</label>
+                <input type="date" id="task-due-date" />
+              </div>
+              <div class="option-group">
+                <label for="task-priority">Priority:</label>
+                <select id="task-priority">
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+              </div>
+              <div class="option-group">
+                <label for="task-project">Project:</label>
+                <select id="task-project">
+                  <option value="personal">Personal</option>
+                  <option value="work">Work</option>
+                  <option value="shopping">Shopping</option>
+                  <option value="health">Health</option>
+                </select>
+              </div>
+            </div>
+            <div class="option-actions">
+              <button id="cancel-task" class="btn-secondary">Cancel</button>
+              <button id="save-task" class="btn-primary">Add Task</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar" id="filter-bar">
+          <div class="filter-options">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="personal">Personal</button>
+            <button class="filter-btn" data-filter="work">Work</button>
+            <button class="filter-btn" data-filter="shopping">Shopping</button>
+            <button class="filter-btn" data-filter="health">Health</button>
+          </div>
+          <div class="filter-priority">
+            <button class="priority-filter" data-priority="urgent">
+              Urgent
+            </button>
+            <button class="priority-filter" data-priority="high">High</button>
+            <button class="priority-filter" data-priority="medium">
+              Medium
+            </button>
+            <button class="priority-filter" data-priority="low">Low</button>
+          </div>
+        </div>
+
+        <!-- Tasks Container -->
+        <div class="tasks-container" id="tasks-container">
+          <div class="empty-state" id="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-clipboard-list"></i>
+            </div>
+            <h3>No tasks yet</h3>
+            <p>
+              Add a task above to get started on your journey to productivity!
+            </p>
+          </div>
+
+          <div class="tasks-list" id="tasks-list">
+            <!-- Tasks will be dynamically inserted here -->
+          </div>
+        </div>
+      </main>
     </div>
 
     <!-- Task Edit Modal -->
     <div class="modal-overlay" id="edit-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Edit Task</h3>
-                <button class="btn-icon" id="close-modal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="edit-task-text">Task:</label>
-                    <input type="text" id="edit-task-text">
-                </div>
-                <div class="form-group">
-                    <label for="edit-task-due-date">Due Date:</label>
-                    <input type="date" id="edit-task-due-date">
-                </div>
-                <div class="form-group">
-                    <label for="edit-task-priority">Priority:</label>
-                    <select id="edit-task-priority">
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                        <option value="urgent">Urgent</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="edit-task-project">Project:</label>
-                    <select id="edit-task-project">
-                        <option value="personal">Personal</option>
-                        <option value="work">Work</option>
-                        <option value="shopping">Shopping</option>
-                        <option value="health">Health</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button id="cancel-edit" class="btn-secondary">Cancel</button>
-                <button id="save-edit" class="btn-primary">Save Changes</button>
-            </div>
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Edit Task</h3>
+          <button class="btn-icon" id="close-modal">
+            <i class="fas fa-times"></i>
+          </button>
         </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="edit-task-text">Task:</label>
+            <input type="text" id="edit-task-text" />
+          </div>
+          <div class="form-group">
+            <label for="edit-task-due-date">Due Date:</label>
+            <input type="date" id="edit-task-due-date" />
+          </div>
+          <div class="form-group">
+            <label for="edit-task-priority">Priority:</label>
+            <select id="edit-task-priority">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-task-project">Project:</label>
+            <select id="edit-task-project">
+              <option value="personal">Personal</option>
+              <option value="work">Work</option>
+              <option value="shopping">Shopping</option>
+              <option value="health">Health</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="cancel-edit" class="btn-secondary">Cancel</button>
+          <button id="save-edit" class="btn-primary">Save Changes</button>
+        </div>
+      </div>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
