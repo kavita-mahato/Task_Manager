@@ -80,7 +80,7 @@
 ## 🎮 Usage Guide
 
 ### Adding Tasks
-1. Click on the task input field or press `Ctrl+N`
+1. Click on the task input field
 2. Type your task description
 3. Click the `+` button or press `Enter` to expand task details
 4. Set due date, priority level, and project category
@@ -97,14 +97,6 @@
 - **Upcoming**: View tasks with future due dates
 - **All Tasks**: View all incomplete tasks
 - **Completed**: View all completed tasks
-
-### Keyboard Shortcuts
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl/Cmd + K` | Toggle search |
-| `Ctrl/Cmd + N` | Focus task input |
-| `Enter` | Save task (when input is focused) |
-| `Escape` | Close modals/forms |
 
 ---
 
@@ -142,7 +134,7 @@ The application uses CSS custom properties for easy theming:
 
 ```css
 :root {
-    --primary-color: #db4c3f;      /* Main brand color */
+    --primary-color: #fd5757;      /* Main brand color */
     --primary-hover: #c23616;      /* Hover state */
     --success-color: #28a745;       /* Success states */
     --warning-color: #ffc107;       /* Warning states */
@@ -179,7 +171,7 @@ Edit the project select options in `index.html`:
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
+Open to contributions! Here's how you can help:
 
 1. **Fork the repository**
 2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
