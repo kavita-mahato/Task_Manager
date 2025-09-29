@@ -43,7 +43,7 @@
 ## 🖼️ Screenshots
 
 <div align="center">
-  <img src="main.interface.png" alt="Main Interface" width="80%">
+  <img src="main_interface.png" alt="Main Interface" width="80%">
   <p><em>Clean, modern interface with sidebar navigation and task management</em></p>
 </div>
 
