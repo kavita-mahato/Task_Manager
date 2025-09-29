@@ -59,8 +59,8 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/task-manager.git
-   cd task-manager
+   git clone https://github.com/kavita-mahato/Task_Manager.git
+   cd Task_Manager
    ```
 
 2. **Open the application**
