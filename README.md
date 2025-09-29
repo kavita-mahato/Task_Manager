@@ -214,13 +214,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you encounter any issues or have questions:
 
-- 🐛 **Report Bugs**: [Create an issue](https://github.com/yourusername/task-manager/issues)
-- 💡 **Feature Requests**: [Start a discussion](https://github.com/yourusername/task-manager/discussions)
-- 📧 **Contact**: [your-email@example.com](mailto:your-email@example.com)
+- 🐛 **Report Bugs**: [Create an issue](https://github.com/kavita-mahato/Task_Manager/issues)
+- 💡 **Feature Requests**: [Start a discussion](https://github.com/kavita-mahato/Task_Manager/discussions)
+- 📧 **Contact**: [kavitamahato0835@gmail.com](mailto:kavitamahato0835@gmail.com)
 
 ---
 
 <div align="center">
-  <p>Made with ❤️ and lots of ☕</p>
   <p><strong>TaskMate</strong> - Your productivity companion</p>
+  <p>Made with ❤️ and lots of ☕ by Kavita Mahato</p>
 </div>
